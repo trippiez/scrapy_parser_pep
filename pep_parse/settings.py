@@ -1,3 +1,4 @@
+from pathlib import Path
 # Scrapy settings for pep_parse project
 #
 # For simplicity, this file contains only settings considered important or
@@ -86,3 +87,15 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+scrapy_parser_pep_path = Path(__file__).resolve().parent.parent
+
+FEED_URI_BASE = scrapy_parser_pep_path / 'results'
+
+FEEDS = {
+    f'{FEED_URI_BASE}/pep_%(time)s.csv': {
+        'format': 'csv',
+        'fields': ['number', 'name', 'status'],
+        'overwrite': True,
+    },
+}
