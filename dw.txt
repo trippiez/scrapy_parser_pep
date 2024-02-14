@@ -14,7 +14,7 @@ class PepSpider(scrapy.Spider):
         ).getall()
         for pep_link in pep_links[:10]:
             if pep_link is not None:
-                yield response.follow(pep_link, callback=self.parse_pep)
+                yield response.follow(pep_link, callback=self.parse)
 
     def parse_pep(self, response):
         dl_tag = response.xpath('//dl[contains(@class, "rfc2822")]')
