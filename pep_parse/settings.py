@@ -88,12 +88,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-scrapy_parser_pep_path = Path(__file__).resolve().parent.parent
-
-FEED_URI_BASE = scrapy_parser_pep_path / 'results'
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 FEEDS = {
-    f'{FEED_URI_BASE}/pep_%(time)s.csv': {
+    'results/pep_%(time)s.csv': {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
         'overwrite': True,
