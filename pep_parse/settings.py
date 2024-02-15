@@ -88,6 +88,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 FEEDS = {
