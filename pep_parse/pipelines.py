@@ -36,4 +36,4 @@ class PepParsePipeline:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data)
-            csvfile.write(f'Total,{total_count}')
+            writer.writerow({'Статус': 'Total', 'Количество': total_count})
