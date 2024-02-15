@@ -21,16 +21,14 @@ class PepSpider(scrapy.Spider):
     def parse_pep(self, response):
         dl_tag = response.xpath('//dl[contains(@class, "rfc2822")]')
         for status in dl_tag:
-            text_status_tag = status.xpath('./dt[starts-with(., "Status")]')
-            pep_status = text_status_tag.xpath(
-                './following-sibling::dd//abbr/text()'
-            ).get()
+            pep_status = status.xpath(
+                './dt[starts-with(., "Status")]'
+                '/following-sibling::dd//abbr/text()').get()
 
             title = response.xpath('//h1[@class="page-title"]').extract_first()
-            if title:
-                title_text = scrapy.Selector(
-                    text=title).xpath('//text()').extract()
-                title = ''.join(title_text)
+            title_text = scrapy.Selector(
+                text=title).xpath('//text()').extract()
+            title = ''.join(title_text)
 
             pattern = r'^PEP (?P<number>\d+)\s–\s(?P<name>.*)$'
             re_match = re.search(pattern, title)
