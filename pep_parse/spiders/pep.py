@@ -1,12 +1,10 @@
-import re
-
 import scrapy
 
 from pep_parse.items import PepParseItem
 from pep_parse.settings import PEP_SPIDER_URL
 from pep_parse.xpath_queries import (DL_TAG_XPATH, PEP_LINKS_XPATH,
-                                     PEP_NUMBER_NAME_PATTERN, PEP_STATUS_XPATH,
-                                     PEP_TITLE_XPATH, TEXT_XPATH)
+                                     PEP_STATUS_XPATH, PEP_TITLE_XPATH,
+                                     TEXT_XPATH)
 
 
 class PepSpider(scrapy.Spider):
@@ -24,11 +22,10 @@ class PepSpider(scrapy.Spider):
         for status in dl_tag:
             pep_status = status.xpath(PEP_STATUS_XPATH).get()
 
-        title_text = response.xpath(PEP_TITLE_XPATH + TEXT_XPATH).extract()
-        title = ''.join(title_text)
+        title = response.xpath(PEP_TITLE_XPATH + TEXT_XPATH).get().split()
 
-        re_match = re.search(PEP_NUMBER_NAME_PATTERN, title)
-        number, name = re_match.groups() if re_match else ('', title)
+        number = title[1]
+        name = ' '.join(title[3:])
 
         data = {
             'number': number,
